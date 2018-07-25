@@ -37,6 +37,7 @@ func init() {
 	}
 }
 
+// TmplData precisa ser comentado
 type TmplData struct {
 	QueryString string
 	Error       bool
