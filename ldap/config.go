@@ -3,11 +3,12 @@ package ldap
 import (
 	"crypto/rsa"
 	"errors"
-	jwt "github.com/dgrijalva/jwt-go"
 	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
+
+	jwt "github.com/dgrijalva/jwt-go"
 
 	"github.com/samitpal/simple-sso/sso"
 )

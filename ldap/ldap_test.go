@@ -1,13 +1,14 @@
 package ldap
 
 import (
-	"github.com/samitpal/simple-sso/sso"
 	"net/http"
 	"os"
 	"reflect"
 	"strconv"
 	"testing"
 	"time"
+
+	"github.com/samitpal/simple-sso/sso"
 )
 
 func init() {

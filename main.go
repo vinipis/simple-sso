@@ -4,14 +4,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
-	weblog "github.com/samitpal/goProbe/log"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	weblog "github.com/samitpal/goProbe/log"
 
 	"github.com/samitpal/simple-sso/ldap"
 	"github.com/samitpal/simple-sso/sso"
@@ -55,7 +56,7 @@ func handleSSOGetRequest(w http.ResponseWriter, r *http.Request) {
 		err = true
 	}
 	tmplData := TmplData{QueryString: r.URL.Query().Get("s_url"), Error: err}
-	renderTemplate(w, "templates/login.html", &tmplData)
+	renderTemplate(w, "/home/carlos/nubeliu/src/nubeliu-on-boarding/simple-sso/templates/login.html", &tmplData)
 }
 
 // handleSSOPostRequest sets the sso cookie.

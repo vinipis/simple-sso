@@ -1,10 +1,11 @@
 package ldap
 
 import (
-	"github.com/samitpal/simple-sso/sso"
 	"os"
 	"reflect"
 	"testing"
+
+	"github.com/samitpal/simple-sso/sso"
 )
 
 func TestSetupDefaultString(t *testing.T) {

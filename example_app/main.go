@@ -3,13 +3,14 @@ package main
 import (
 	"crypto/rsa"
 	"fmt"
-	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/gorilla/mux"
-	"github.com/samitpal/simple-sso/util"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
+
+	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/gorilla/mux"
+	"github.com/samitpal/simple-sso/util"
 )
 
 var parsedPubKey *rsa.PublicKey
@@ -91,7 +92,7 @@ func main() {
 	r.HandleFunc("/auth_token", authTokCheck)
 
 	http.Handle("/", r)
-	err := http.ListenAndServeTLS(":8082", "../ssl_certs/cert.pem", "../ssl_certs/key.pem", nil)
+	err := http.ListenAndServeTLS(":8082", "/home/carlos/nubeliu/src/nubeliu-on-boarding/simple-sso/ssl_certs/cert.pem", "ssl_certs/key.pem", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

@@ -6,9 +6,10 @@ package ldap
 import (
 	"crypto/tls"
 	"fmt"
-	"gopkg.in/ldap.v2"
 	"net/http"
 	"time"
+
+	"gopkg.in/ldap.v2"
 
 	"github.com/samitpal/simple-sso/sso"
 	"github.com/samitpal/simple-sso/util"
