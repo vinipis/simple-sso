@@ -11,8 +11,8 @@ import (
 
 	"gopkg.in/ldap.v2"
 
-	"github.com/samitpal/simple-sso/sso"
-	"github.com/samitpal/simple-sso/util"
+	"github.com/vinipis/simple-sso/sso"
+	"github.com/vinipis/simple-sso/util"
 )
 
 type LdapSSO struct {

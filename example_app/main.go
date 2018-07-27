@@ -10,7 +10,7 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
-	"github.com/samitpal/simple-sso/util"
+	"github.com/vinipis/simple-sso/util"
 )
 
 var parsedPubKey *rsa.PublicKey

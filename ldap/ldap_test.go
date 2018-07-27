@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/samitpal/simple-sso/sso"
+	"github.com/vinipis/simple-sso/sso"
 )
 
 func init() {

@@ -10,7 +10,7 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 
-	"github.com/samitpal/simple-sso/sso"
+	"github.com/vinipis/simple-sso/sso"
 )
 
 var PrivateKey *rsa.PrivateKey

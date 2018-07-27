@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/samitpal/simple-sso/sso"
+	"github.com/vinipis/simple-sso/sso"
 )
 
 func TestSetupDefaultString(t *testing.T) {

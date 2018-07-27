@@ -14,8 +14,8 @@ import (
 	"github.com/gorilla/mux"
 	weblog "github.com/samitpal/goProbe/log"
 
-	"github.com/samitpal/simple-sso/ldap"
-	"github.com/samitpal/simple-sso/sso"
+	"github.com/vinipis/simple-sso/ldap"
+	"github.com/vinipis/simple-sso/sso"
 )
 
 var lsso sso.SSOer
