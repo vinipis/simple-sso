@@ -63,7 +63,7 @@ func handleSSOGetRequest(w http.ResponseWriter, r *http.Request) {
 // handleSSOPostRequest sets the sso cookie.
 func handleSSOPostRequest(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	p_uri := r.PostFormValue("query_string")
+	pURI := r.PostFormValue("query_string")
 
 	u, g, err := lsso.Auth(r.PostFormValue("username"), r.PostFormValue("password"))
 	if u != nil {
@@ -72,13 +72,13 @@ func handleSSOPostRequest(w http.ResponseWriter, r *http.Request) {
 		tok, _ := lsso.BuildJWTToken(*u, *g, exp)
 		c := lsso.BuildCookie(tok, exp)
 		http.SetCookie(w, &c)
-		http.Redirect(w, r, p_uri, 301)
+		http.Redirect(w, r, pURI, 301)
 		return
 	}
 	if err != nil {
 		if sso.Err401Map[err] {
 			log.Println(err)
-			http.Redirect(w, r, fmt.Sprintf("/sso?s_url=%s&auth_error=true", p_uri), 301)
+			http.Redirect(w, r, fmt.Sprintf("/sso?s_url=%s&auth_error=true", pURI), 301)
 			return
 		}
 		log.Println(err)
