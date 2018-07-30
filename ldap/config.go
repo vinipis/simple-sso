@@ -13,10 +13,14 @@ import (
 	"github.com/vinipis/simple-sso/sso"
 )
 
+// PrivateKey precisa de comentario
 var PrivateKey *rsa.PrivateKey
+
+//BaseConf precisa de comentario
 var BaseConf *sso.BaseConfig
 
-type LdapConfig struct {
+//Config precisa de comentario
+type Config struct {
 	host       string
 	port       int
 	ssl        bool
@@ -50,7 +54,7 @@ func setDefaultString(s string, d string) string {
 }
 
 // ldapConfig sets up ldap config from the env.
-func (l *LdapConfig) setupLdapConfig() error {
+func (l *Config) setupLdapConfig() error {
 
 	l.host = setDefaultString(os.Getenv(sso.ConfMap["sso_ldap_host"]), "localhost")
 
@@ -72,7 +76,7 @@ func (l *LdapConfig) setupLdapConfig() error {
 	l.bindPasswd = os.Getenv(sso.ConfMap["sso_ldap_bindpasswd"])
 
 	if l.binddn != "" && l.bindPasswd == "" {
-		return errors.New("Bind dn is set but bind password is not set.")
+		return errors.New("Bind dn is set but bind password is not set")
 	}
 
 	return nil

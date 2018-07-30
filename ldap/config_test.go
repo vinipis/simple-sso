@@ -31,12 +31,12 @@ func TestSetupLdapConfig(t *testing.T) {
 	os.Setenv(sso.ConfMap["sso_ldap_basedn"], "basedn")
 	os.Setenv(sso.ConfMap["sso_ldap_binddn"], "binddn")
 	os.Setenv(sso.ConfMap["sso_ldap_bindpasswd"], "bindpasswd")
-	l := LdapConfig{}
+	l := Config{}
 	err := l.setupLdapConfig()
 	if err != nil {
 		t.Errorf("Error: %v", err)
 	}
-	w := LdapConfig{"host", 123, true, "basedn", "binddn", "bindpasswd"}
+	w := Config{"host", 123, true, "basedn", "binddn", "bindpasswd"}
 	if !reflect.DeepEqual(l, w) {
 		t.Errorf("Got: %v\n \tWant: %v", l, w)
 	}
@@ -48,7 +48,7 @@ func TestSetupLdapConfig(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error: %v", err)
 	}
-	w = LdapConfig{"localhost", 389, false, "basedn", "binddn", "bindpasswd"}
+	w = Config{"localhost", 389, false, "basedn", "binddn", "bindpasswd"}
 	if !reflect.DeepEqual(l, w) {
 		t.Errorf("Got: %v\n \tWant: %v", l, w)
 	}

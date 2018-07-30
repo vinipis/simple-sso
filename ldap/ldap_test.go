@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	os.Setenv(sso.ConfMap["sso_private_key_path"], "../util/test/test_key.pem")
+	os.Setenv(sso.ConfMap["sso_private_key_path"], "/home/carlos/go/src/github.com/vinipis/simple-sso/util/test/test_key.pem")
 }
 
 func TestBuildCookie(t *testing.T) {

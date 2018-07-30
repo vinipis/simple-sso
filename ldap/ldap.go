@@ -1,4 +1,4 @@
-// package ldap is an sso implementation. It uses an ldap backend to authenticate and optionally
+// Package ldap is an sso implementation. It uses an ldap backend to authenticate and optionally
 // utilize ldap group memberships for setting up roles in the cookie/jwt which can later be used
 // by applications for authorization.
 package ldap
@@ -15,33 +15,37 @@ import (
 	"github.com/vinipis/simple-sso/util"
 )
 
-type LdapSSO struct {
+//SSO precisa de comentario
+type SSO struct {
 	Cookie *sso.CookieConfig
-	Ldap   *LdapConfig
+	Ldap   *Config
 }
 
+//ErrUserNotFound deve ser comentado
 var (
 	ErrUserNotFound = sso.ErrUserNotFound
 	ErrUnauthorized = sso.ErrUnAuthorized
 )
 
-func NewLdapSSO() (*LdapSSO, error) {
+//NewLdapSSO deve ser comentado
+func NewLdapSSO() (*SSO, error) {
 	setupBaseConfig()
 	c, err := sso.SetupCookieConfig()
 	if err != nil {
 		return nil, err
 	}
 
-	l := new(LdapConfig)
+	l := new(Config)
 	err = l.setupLdapConfig()
 	if err != nil {
 		return nil, err
 	}
 
-	return &LdapSSO{c, l}, nil
+	return &SSO{c, l}, nil
 }
 
-func (ls LdapSSO) Auth(u string, p string) (*string, *[]string, error) {
+//Auth precisa de comentario
+func (ls SSO) Auth(u string, p string) (*string, *[]string, error) {
 
 	ldap.DefaultTimeout = 20 * time.Second // applies to Dial and DialTLS methods.
 	l, err := ldap.Dial("tcp", fmt.Sprintf("%s:%d", ls.Ldap.host, ls.Ldap.port))
@@ -113,24 +117,29 @@ func (ls LdapSSO) Auth(u string, p string) (*string, *[]string, error) {
 	return &u, &g, nil
 }
 
-func (ls LdapSSO) CTValidHours() int64 {
+//CTValidHours precisa de comentario
+func (ls SSO) CTValidHours() int64 {
 	return ls.Cookie.ValidHours
 }
 
-func (ls LdapSSO) BuildJWTToken(u string, g []string, exp time.Time) (string, error) {
+//BuildJWTToken precisa de comentario
+func (ls SSO) BuildJWTToken(u string, g []string, exp time.Time) (string, error) {
 	return util.GenJWT(u, g, PrivateKey, exp.Unix())
 
 }
 
-func (ls LdapSSO) CookieName() string {
+// CookieName precisa de comentario
+func (ls SSO) CookieName() string {
 	return ls.Cookie.Name
 }
 
-func (ls LdapSSO) CookieDomain() string {
+// CookieDomain precisa de comentario
+func (ls SSO) CookieDomain() string {
 	return ls.Cookie.Domain
 }
 
-func (ls LdapSSO) BuildCookie(s string, exp time.Time) http.Cookie {
+// BuildCookie precisa de comentario
+func (ls SSO) BuildCookie(s string, exp time.Time) http.Cookie {
 	c := http.Cookie{
 		Name:     ls.Cookie.Name,
 		Value:    s,
@@ -144,7 +153,8 @@ func (ls LdapSSO) BuildCookie(s string, exp time.Time) http.Cookie {
 	return c
 }
 
-func (ls LdapSSO) Logout(expT time.Time) http.Cookie {
+// Logout precisa de comentario
+func (ls SSO) Logout(expT time.Time) http.Cookie {
 	c := http.Cookie{
 		Name:     ls.Cookie.Name,
 		Value:    "",
