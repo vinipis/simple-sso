@@ -24,9 +24,9 @@ func TestSetupDefaultString(t *testing.T) {
 
 func TestSetupBaseConfig(t *testing.T) {
 	expBaseConfig := BaseConfig{
-		"ssl_certs/cert.pem",
-		"ssl_certs/key.pem",
-		"key_pair/demo.rsa",
+		"/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/cert.pem",
+		"/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/key.pem",
+		"/home/carlos/go/src/github.com/vinipis/simple-sso/key_pair/demo.rsa",
 		"",
 		false,
 	}

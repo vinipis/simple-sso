@@ -16,7 +16,7 @@ import (
 var parsedPubKey *rsa.PublicKey
 
 func init() {
-	key, _ := ioutil.ReadFile("../key_pair/demo.rsa.pub") // this is the public key of the login (simple-sso) server
+	key, _ := ioutil.ReadFile("/home/carlos/go/src/github.com/vinipis/simple-sso/key_pair/demo.rsa.pub") // this is the public key of the login (simple-sso) server
 	parsedPubKey, _ = jwt.ParseRSAPublicKeyFromPEM(key)
 }
 
@@ -92,7 +92,7 @@ func main() {
 	r.HandleFunc("/auth_token", authTokCheck)
 
 	http.Handle("/", r)
-	err := http.ListenAndServeTLS(":8082", "/home/carlos/nubeliu/src/nubeliu-on-boarding/simple-sso/ssl_certs/cert.pem", "ssl_certs/key.pem", nil)
+	err := http.ListenAndServeTLS(":8082", "/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/cert.pem", "ssl_certs/key.pem", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

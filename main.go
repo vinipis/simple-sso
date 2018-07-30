@@ -12,7 +12,7 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	weblog "github.com/samitpal/goProbe/log"
+	weblog "github.com/vinipis/goProbe/log"
 
 	"github.com/vinipis/simple-sso/ldap"
 	"github.com/vinipis/simple-sso/sso"
@@ -57,7 +57,7 @@ func handleSSOGetRequest(w http.ResponseWriter, r *http.Request) {
 		err = true
 	}
 	tmplData := TmplData{QueryString: r.URL.Query().Get("s_url"), Error: err}
-	renderTemplate(w, "/home/carlos/nubeliu/src/nubeliu-on-boarding/simple-sso/templates/login.html", &tmplData)
+	renderTemplate(w, "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html", &tmplData)
 }
 
 // handleSSOPostRequest sets the sso cookie.
