@@ -6,14 +6,15 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
+//CustomClaims todo objeto precisa ser comentado
 type CustomClaims struct {
 	User  string   `json:"user"`
 	Roles []string `json:"roles"`
 	jwt.StandardClaims
 }
 
-// GenJWT generates the jwt token. Among other stuff, it packs in the authenticated user name and the roles that the
-// user belongs to and an expiration time. The info is then signed by the private key of the login server.
+// GenJWT gera o token jwt. Entre outras coisas, ele embala o nome de usuário autenticado e os papéis que
+// o usuário pertence e um tempo de expiração. A informação é então assinada pela chave privada do servidor de login.
 func GenJWT(u string, g []string, p *rsa.PrivateKey, t int64) (string, error) {
 	claims := CustomClaims{
 		u,

@@ -16,14 +16,14 @@ import (
 var parsedPubKey *rsa.PublicKey
 
 func init() {
-	key, _ := ioutil.ReadFile("/home/carlos/go/src/github.com/vinipis/simple-sso/key_pair/demo.rsa.pub") // this is the public key of the login (simple-sso) server
+	key, _ := ioutil.ReadFile("/home/carlos/go/src/github.com/vinipis/simple-sso/key_pair/demo.rsa.pub") // esta é a chave pública do servidor de login (simple-sso)
 	parsedPubKey, _ = jwt.ParseRSAPublicKeyFromPEM(key)
 }
 
 func cookieCheck(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("SSO_C")
 	if err == http.ErrNoCookie {
-		// we redirect to the login service setting the appropriate s_url to come back after auth.
+		// nós redirecionamos para o serviço de login definindo o s_url apropriado para retornar após a autenticação.
 		http.Redirect(w, r, "https://127.0.0.1:8081/sso?s_url=https://127.0.0.1:8082/cookie", 301)
 		return
 	}
@@ -43,7 +43,7 @@ func cookieCheck(w http.ResponseWriter, r *http.Request) {
 		return parsedPubKey, nil
 	})
 
-	claims, ok := token.Claims.(*util.CustomClaims) // claims.User and claims.Roles are what we are interested in.
+	claims, ok := token.Claims.(*util.CustomClaims) // claims.User e claims.Roles são o que nos interessa.
 	if ok && token.Valid {
 		fmt.Printf("User: %v Roles: %v Tok_Expires: %v \n", claims.User, claims.Roles, claims.StandardClaims.ExpiresAt)
 
@@ -73,7 +73,7 @@ func authTokCheck(w http.ResponseWriter, r *http.Request) {
 		return parsedPubKey, nil
 	})
 
-	claims, ok := token.Claims.(*util.CustomClaims) // claims.User and claims.Roles are what we are interested in.
+	claims, ok := token.Claims.(*util.CustomClaims) // claims.User e claims.Roles são o que nos interessa.
 	if ok && token.Valid {
 		fmt.Printf("User: %v Roles: %v Tok_Expires: %v \n", claims.User, claims.Roles, claims.StandardClaims.ExpiresAt)
 
@@ -92,7 +92,7 @@ func main() {
 	r.HandleFunc("/auth_token", authTokCheck)
 
 	http.Handle("/", r)
-	err := http.ListenAndServeTLS(":8082", "/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/cert.pem", "ssl_certs/key.pem", nil)
+	err := http.ListenAndServeTLS(":8082", "/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/cert.pem", "/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/key.pem", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

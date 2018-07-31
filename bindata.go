@@ -22,7 +22,7 @@ import (
 func bindataRead(data []byte, name string) ([]byte, error) {
 	gz, err := gzip.NewReader(bytes.NewBuffer(data))
 	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
+		return nil, fmt.Errorf("Ler %q: %v", name, err)
 	}
 
 	var buf bytes.Buffer
@@ -30,7 +30,7 @@ func bindataRead(data []byte, name string) ([]byte, error) {
 	clErr := gz.Close()
 
 	if err != nil {
-		return nil, fmt.Errorf("Read %q: %v", name, err)
+		return nil, fmt.Errorf("Ler %q: %v", name, err)
 	}
 	if clErr != nil {
 		return nil, err
@@ -75,7 +75,7 @@ var _templatesFooterHTML = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xaa\
 func templatesFooterHTMLBytes() ([]byte, error) {
 	return bindataRead(
 		_templatesFooterHTML,
-		"templates/footer.html",
+		"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/footer.html",
 	)
 }
 
@@ -85,7 +85,7 @@ func templatesFooterHTML() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "templates/footer.html", size: 49, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
+	info := bindataFileInfo{name: "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/footer.html", size: 49, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -95,7 +95,7 @@ var _templatesHeaderHTML = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xac\
 func templatesHeaderHTMLBytes() ([]byte, error) {
 	return bindataRead(
 		_templatesHeaderHTML,
-		"templates/header.html",
+		"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/header.html",
 	)
 }
 
@@ -105,7 +105,7 @@ func templatesHeaderHTML() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "templates/header.html", size: 1922, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
+	info := bindataFileInfo{name: "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/header.html", size: 1922, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -115,7 +115,7 @@ var _templatesLoginHTML = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x7c\x
 func templatesLoginHTMLBytes() ([]byte, error) {
 	return bindataRead(
 		_templatesLoginHTML,
-		"templates/login.html",
+		"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html",
 	)
 }
 
@@ -125,14 +125,14 @@ func templatesLoginHTML() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "templates/login.html", size: 791, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
+	info := bindataFileInfo{name: "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html", size: 791, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
 
-// Asset loads and returns the asset for the given name.
-// It returns an error if the asset could not be found or
-// could not be loaded.
+// Asset carrega e retorna o ativo para o nome determinado.
+// Retorna um erro se o ativo não puder ser encontrado ou
+// não pode ser carregado.
 func Asset(name string) ([]byte, error) {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	if f, ok := _bindata[cannonicalName]; ok {
@@ -145,8 +145,8 @@ func Asset(name string) ([]byte, error) {
 	return nil, fmt.Errorf("Asset %s not found", name)
 }
 
-// MustAsset is like Asset but panics when Asset would return an error.
-// It simplifies safe initialization of global variables.
+// MustAsset é como Ativo, mas entra em pânico quando o Ativo retornaria um erro.
+// Simplifica a inicialização segura de variáveis globais.
 func MustAsset(name string) []byte {
 	a, err := Asset(name)
 	if err != nil {
@@ -156,9 +156,9 @@ func MustAsset(name string) []byte {
 	return a
 }
 
-// AssetInfo loads and returns the asset info for the given name.
-// It returns an error if the asset could not be found or
-// could not be loaded.
+// AssetInfo carrega e retorna as informações do ativo para o nome dado.
+// Retorna um erro se o ativo não puder ser encontrado ou
+// não pode ser carregado.
 func AssetInfo(name string) (os.FileInfo, error) {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	if f, ok := _bindata[cannonicalName]; ok {
@@ -171,7 +171,7 @@ func AssetInfo(name string) (os.FileInfo, error) {
 	return nil, fmt.Errorf("AssetInfo %s not found", name)
 }
 
-// AssetNames returns the names of the assets.
+// AssetNames retorna os nomes dos ativos.
 func AssetNames() []string {
 	names := make([]string, 0, len(_bindata))
 	for name := range _bindata {
@@ -180,26 +180,26 @@ func AssetNames() []string {
 	return names
 }
 
-// _bindata is a table, holding each asset generator, mapped to its name.
+// _bindata é uma tabela, segurando cada gerador de ativos, mapeada para o seu nome.
 var _bindata = map[string]func() (*asset, error){
-	"templates/footer.html": templatesFooterHTML,
-	"templates/header.html": templatesHeaderHTML,
-	"templates/login.html":  templatesLoginHTML,
+	"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/footer.html": templatesFooterHTML,
+	"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/header.html": templatesHeaderHTML,
+	"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html":  templatesLoginHTML,
 }
 
-// AssetDir returns the file names below a certain
-// directory embedded in the file by go-bindata.
-// For example if you run go-bindata on data/... and data contains the
-// following hierarchy:
+// AssetDir retorna os nomes dos arquivos abaixo de um certo
+// diretório embutido no arquivo por go-bindata.
+// Por exemplo, se você executar o go-bindata em dados / ... e os dados contiverem
+// seguindo a hierarquia:
 //     data/
 //       foo.txt
 //       img/
 //         a.png
 //         b.png
-// then AssetDir("data") would return []string{"foo.txt", "img"}
-// AssetDir("data/img") would return []string{"a.png", "b.png"}
-// AssetDir("foo.txt") and AssetDir("notexist") would return an error
-// AssetDir("") will return []string{"data"}.
+// then AssetDir("data") retornaria []string{"foo.txt", "img"}
+// AssetDir("data/img") retornaria []string{"a.png", "b.png"}
+// AssetDir("foo.txt") and AssetDir("notexist") etornaria um erro
+// AssetDir("") retornará []string{"data"}.
 func AssetDir(name string) ([]string, error) {
 	node := _bintree
 	if len(name) != 0 {
@@ -235,7 +235,7 @@ var _bintree = &bintree{nil, map[string]*bintree{
 	}},
 }}
 
-// RestoreAsset restores an asset under the given directory
+// RestoreAsset restaura um ativo no diretório fornecido
 func RestoreAsset(dir, name string) error {
 	data, err := Asset(name)
 	if err != nil {
@@ -260,7 +260,7 @@ func RestoreAsset(dir, name string) error {
 	return nil
 }
 
-// RestoreAssets restores an asset under the given directory recursively
+// RestoreAssets restaura um recurso sob o diretório especificado recursivamente
 func RestoreAssets(dir, name string) error {
 	children, err := AssetDir(name)
 	// File

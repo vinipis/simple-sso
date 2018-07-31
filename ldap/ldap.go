@@ -1,6 +1,6 @@
-// Package ldap is an sso implementation. It uses an ldap backend to authenticate and optionally
-// utilize ldap group memberships for setting up roles in the cookie/jwt which can later be used
-// by applications for authorization.
+// Package ldap é uma implementação sso. Ele usa um backend ldap para autenticar e opcionalmente
+// utilizar membros do grupo ldap para configurar funções no cookie/jwt que podem ser usadas posteriormente
+// por pedidos de autorização.
 package ldap
 
 import (
@@ -47,14 +47,14 @@ func NewLdapSSO() (*SSO, error) {
 //Auth precisa de comentario
 func (ls SSO) Auth(u string, p string) (*string, *[]string, error) {
 
-	ldap.DefaultTimeout = 20 * time.Second // applies to Dial and DialTLS methods.
+	ldap.DefaultTimeout = 20 * time.Second // aplica-se aos métodos Dial e DialTLS.
 	l, err := ldap.Dial("tcp", fmt.Sprintf("%s:%d", ls.Ldap.host, ls.Ldap.port))
 	if err != nil {
 		return nil, nil, err
 	}
 	defer l.Close()
 
-	// Reconnect with TLS if sso_ldap_ssl env is set.
+	// Reconecte-se com o TLS se o sso_ldap_ssl env estiver configurado.
 	if ls.Ldap.ssl {
 		err = l.StartTLS(&tls.Config{InsecureSkipVerify: true})
 		if err != nil {
@@ -62,7 +62,7 @@ func (ls SSO) Auth(u string, p string) (*string, *[]string, error) {
 		}
 	}
 
-	// First bind with a read only user
+	// Primeira ligação com um usuário somente de leitura
 	if ls.Ldap.binddn != "" {
 		err = l.Bind(ls.Ldap.binddn, ls.Ldap.bindPasswd)
 		if err != nil {
@@ -70,10 +70,10 @@ func (ls SSO) Auth(u string, p string) (*string, *[]string, error) {
 		}
 	}
 
-	// Search for the given username
+	// Procure pelo nome de usuário fornecido
 	searchRequestUser := ldap.NewSearchRequest(
 		ls.Ldap.basedn,
-		ldap.ScopeWholeSubtree, ldap.NeverDerefAliases, 0, 30, false, // sets a time limit of 30 secs
+		ldap.ScopeWholeSubtree, ldap.NeverDerefAliases, 0, 30, false, // define um limite de tempo de 30 segundos
 		fmt.Sprintf("(&(objectClass=inetOrgPerson)(uid=%s))", u),
 		[]string{"dn"},
 		nil,
@@ -90,18 +90,18 @@ func (ls SSO) Auth(u string, p string) (*string, *[]string, error) {
 
 	userdn := sru.Entries[0].DN
 
-	// Bind as the user to verify their password
+	// Ligue como o usuário para verificar sua senha
 	err = l.Bind(userdn, p)
 	if err != nil {
 		return nil, nil, ErrUnauthorized
 	}
 
-	// Now find the group membership (if sso_user_roles env is true).
+	// Agora, encontre a associação ao grupo (se sso_user_roles env for true).
 	var g []string
 	if BaseConf.UserRoles {
 		searchRequestGroups := ldap.NewSearchRequest(
 			ls.Ldap.basedn,
-			ldap.ScopeWholeSubtree, ldap.NeverDerefAliases, 0, 30, false, // sets a time limit of 30 secs
+			ldap.ScopeWholeSubtree, ldap.NeverDerefAliases, 0, 30, false, // define um limite de tempo de 30 segundos
 			fmt.Sprintf("(&(objectClass=posixGroup)(memberUid=%s))", u),
 			[]string{"cn"},
 			nil,

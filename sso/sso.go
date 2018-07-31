@@ -9,51 +9,54 @@ import (
 )
 
 var (
-	ErrUnAuthorized = errors.New("Not Authorized")
-	ErrUserNotFound = errors.New("User Not Found")
+	//ErrUnAuthorized precisa ser comentado por ser um objeto
+	ErrUnAuthorized = errors.New("Não autorizado")
+	//ErrUserNotFound precisa ser comentado por ser um objeto
+	ErrUserNotFound = errors.New("Usuário não encontrado")
 )
 
-// SSOImplementer is what it needs to be implemented for sso functionality.
+// SSOer é o que precisa ser implementado para a funcionalidade sso.
 type SSOer interface {
-	// Auth takes user,password strings as arguments and returns the user, user roles (e.g ldap groups)
-	// (string slice) if the call succeds. Auth should return the ErrUnAuthorized or ErrUserNotFound error if
-	// auth fails or if the user is not found respectively.
+	// Auth leva o usuário, as strings de senha como argumentos e retorna o usuário, funções de usuário (por exemplo, grupos de ldap)
+	// (fatia de string) se a chamada é processada. A autenticação deve retornar o erro ErrUnAuthorized ou ErrUserNotFound se
+	// auth falha ou se o usuário não for encontrado respectivamente.
 	Auth(string, string) (*string, *[]string, error)
-	// CTValidHours returns the cookie/jwt token validity in hours.
+	// CTValidHours retorna a validade do token de cookie/jwt em horas.
 	CTValidHours() int64
 	CookieName() string
 	CookieDomain() string
-	// BuildJWTToken takes the user and the user roles info which is then signed by the private
-	// key of the login server. The expiry of the token is set per the third argument.
+	// BuildJWTToken leva o usuário e as informações de papéis do usuário que são assinadas pelo private
+	// chave do servidor de login. A expiração do token é definida pelo terceiro argumento.
 	BuildJWTToken(string, []string, time.Time) (string, error)
-	// BuildCookie takes the jwt token and returns a cookie and sets the expiration time of the same to that of
-	// the second arg.
+	// BuildCookie pega o token jwt e retorna um cookie e configura o tempo de expiração do mesmo para o de
+	// o segundo arg.
 	BuildCookie(string, time.Time) http.Cookie
-	// Logout sets the expiration time of the cookie in the past rendering it unusable.
+	// Logout define o tempo de expiração do cookie no passado tornando-o inutilizável.
 	Logout(time.Time) http.Cookie
 }
 
+//Err401Map precisa ser comentado
 var Err401Map = map[error]bool{
 	ErrUnAuthorized: true,
 	ErrUserNotFound: true,
 }
 
-// All environment variables config goes here for better tracking.
+//ConfMap Todas as variáveis de ambiente config vão aqui para melhor rastreamento.
 var ConfMap = map[string]string{
 	// ssl certs.
 	"sso_ssl_cert_path": "sso_ssl_cert_path",
 	"sso_ssl_key_path":  "sso_ssl_key_path",
-	// private key path for signing the jwt.
+	// caminho da chave privada para assinar o jwt.
 	"sso_private_key_path": "sso_private_key_path",
-	// weblog dir path
+	// caminho do diretório do weblog
 	"sso_weblog_dir": "sso_weblog_dir",
-	// User roles for authorization, (true/false)
+	// Funções do usuário para autorização, (true/false)
 	"sso_user_roles": "sso_user_roles",
-	// cookie configs.
+	// configurações de cookies.
 	"sso_cookie_name":       "sso_cookie_name",
 	"sso_cookie_domain":     "sso_cookie_domain",
 	"sso_cookie_validhours": "sso_cookie_validhours",
-	// ldap configs. This should go into the respective package.
+	// ldap configs. Isso deve ir para o respectivo pacote.
 	"sso_ldap_host":       "sso_ldap_host",
 	"sso_ldap_port":       "sso_ldap_port",
 	"sso_ldap_ssl":        "sso_ldap_ssl",
@@ -62,7 +65,7 @@ var ConfMap = map[string]string{
 	"sso_ldap_bindpasswd": "sso_ldap_bindpasswd",
 }
 
-// setDefaultString returns a given default string.
+// setDefaultString retorna uma determinada string padrão.
 func setDefaultString(s string, d string) string {
 	if s == "" {
 		return d
@@ -70,6 +73,7 @@ func setDefaultString(s string, d string) string {
 	return s
 }
 
+//BaseConfig precisa de comentario
 type BaseConfig struct {
 	SSLCertPath    string
 	SSLKeyPath     string
@@ -78,11 +82,11 @@ type BaseConfig struct {
 	UserRoles      bool
 }
 
-// SetupBaseConfig function setups some generic configs
+// SetupBaseConfig função configura algumas configurações genéricas
 func SetupBaseConfig() (*BaseConfig, error) {
-	sslCertPath := setDefaultString(os.Getenv(ConfMap["sso_ssl_cert_path"]), "ssl_certs/cert.pem")
-	sslKeyPath := setDefaultString(os.Getenv(ConfMap["sso_ssl_key_path"]), "ssl_certs/key.pem")
-	privateKeyPath := setDefaultString(os.Getenv(ConfMap["sso_private_key_path"]), "key_pair/demo.rsa")
+	sslCertPath := setDefaultString(os.Getenv(ConfMap["sso_ssl_cert_path"]), "/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/cert.pem")
+	sslKeyPath := setDefaultString(os.Getenv(ConfMap["sso_ssl_key_path"]), "/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/key.pem")
+	privateKeyPath := setDefaultString(os.Getenv(ConfMap["sso_private_key_path"]), "/home/carlos/go/src/github.com/vinipis/simple-sso/key_pair/demo.rsa")
 	weblogDir := setDefaultString(os.Getenv(ConfMap["sso_weblog_dir"]), "")
 	userRoles, err := strconv.ParseBool(setDefaultString(os.Getenv(ConfMap["sso_user_roles"]), "false"))
 	if err != nil {
@@ -91,13 +95,14 @@ func SetupBaseConfig() (*BaseConfig, error) {
 	return &BaseConfig{sslCertPath, sslKeyPath, privateKeyPath, weblogDir, userRoles}, nil
 }
 
+//CookieConfig precisa de comentario
 type CookieConfig struct {
 	Name       string
 	Domain     string
 	ValidHours int64
 }
 
-// SetupCookieConfig sets up cookie config.
+// SetupCookieConfig configura a configuração do cookie.
 func SetupCookieConfig() (*CookieConfig, error) {
 	name := setDefaultString(os.Getenv(ConfMap["sso_cookie_name"]), "SSO_C")
 	domain := setDefaultString(os.Getenv(ConfMap["sso_cookie_domain"]), "127.0.0.1")

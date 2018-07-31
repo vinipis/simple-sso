@@ -25,13 +25,13 @@ func init() {
 	var err error
 	lsso, err = ldap.NewLdapSSO()
 	if err != nil {
-		log.Fatalf("Error initializing ldap sso: %s", err)
+		log.Fatalf("Erro ao inicializar o ldap sso: %s", err)
 	}
 
 	for _, path := range AssetNames() {
 		bytes, err := Asset(path)
 		if err != nil {
-			log.Fatalf("Unable to parse: path=%s, err=%s", path, err)
+			log.Fatalf("Não é possível analisar: caminho=%s, err=%s", path, err)
 		}
 		templates.New(path).Parse(string(bytes))
 	}
@@ -50,7 +50,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
 	}
 }
 
-// handleSSOGetRequest presents the login form
+// handleSSOGetRequest apresenta o formulário de login
 func handleSSOGetRequest(w http.ResponseWriter, r *http.Request) {
 	err := false
 	if r.URL.Query().Get("auth_error") != "" {
@@ -60,7 +60,7 @@ func handleSSOGetRequest(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html", &tmplData)
 }
 
-// handleSSOPostRequest sets the sso cookie.
+// handleSSOPostRequest define o cookie sso.
 func handleSSOPostRequest(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	pURI := r.PostFormValue("query_string")
@@ -83,13 +83,13 @@ func handleSSOPostRequest(w http.ResponseWriter, r *http.Request) {
 		}
 		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, "Not able to service this request. Please try again later.")
+		fmt.Fprintf(w, "Não é possível atender a essa solicitação. Por favor, tente novamente mais tarde.")
 		return
 
 	}
 }
 
-// handleAuthTokenRequest generates the raw jwt token and sends it across.
+// handleAuthTokenRequest gera o token jwt bruto e o envia.
 func handleAuthTokenRequest(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	u, g, err := lsso.Auth(r.PostFormValue("username"), r.PostFormValue("password"))
@@ -102,36 +102,36 @@ func handleAuthTokenRequest(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if sso.Err401Map[err] {
 			log.Println(err)
-			fmt.Fprintf(w, "Unauthorized.")
+			fmt.Fprintf(w, "Não autorizado.")
 			return
 		}
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, "Not able to service the request. Please try again later.")
+		fmt.Fprintf(w, "Não é possível atender o pedido. Por favor, tente novamente mais tarde.")
 		return
 
 	}
 }
 
-// handleLogoutRequest function invalidates the sso cookie.
+// handleLogoutRequest função invalida o cookie sso.
 func handleLogoutRequest(w http.ResponseWriter, r *http.Request) {
 	expT := time.Now().Add(time.Hour * time.Duration(-1))
 	lc := lsso.Logout(expT)
 
 	http.SetCookie(w, &lc)
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "You have been logged out.")
+	fmt.Fprintf(w, "Você foi desconectado.")
 	return
 }
 
-// handleTestRequest function is just for the purpose of testing.
+// handleTestRequest função é apenas para fins de teste.
 func handleTestRequest(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "You have visited a test page.")
+	fmt.Fprintf(w, "Você visitou uma página de teste.")
 	return
 }
 
 func main() {
-	log.Println("Starting login server.")
+	log.Println("Iniciando o servidor de login.")
 	r := mux.NewRouter()
 
 	var fh *os.File
@@ -140,10 +140,10 @@ func main() {
 	if wld != "" {
 		fh, err = weblog.SetupWebLog(wld, time.Now())
 		if err != nil {
-			log.Fatalf("Failed to set up logging: %v", err)
+			log.Fatalf("Falha ao configurar o registro: %v", err)
 		}
 	} else {
-		fh = os.Stdout // logs web accesses to stdout. May not be thread safe.
+		fh = os.Stdout // registra os acessos da web ao stdout. Pode não ser thread safe.
 	}
 
 	r.Handle("/sso", handlers.CombinedLoggingHandler(fh, http.HandlerFunc(handleSSOPostRequest))).Methods("POST")

@@ -1,2 +1,2 @@
-This directory contains the rsa key pair. simple-sso uses the private key to sign the jwt tokens. The client apps need to use the public key
-to decrypt the same
+Este diretório contém o par de chaves rsa. O simple-sso usa a chave privada para assinar os tokens jwt. Os aplicativos do cliente precisam usar a chave pública
+para descriptografar o mesmo

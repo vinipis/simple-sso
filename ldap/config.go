@@ -45,7 +45,7 @@ func setupBaseConfig() {
 	}
 }
 
-// setDefaultString returns a given default string.
+// setDefaultString retorna uma determinada string padrão.
 func setDefaultString(s string, d string) string {
 	if s == "" {
 		return d
@@ -53,7 +53,7 @@ func setDefaultString(s string, d string) string {
 	return s
 }
 
-// ldapConfig sets up ldap config from the env.
+// ldapConfig configura a configuração do ldap a partir do env.
 func (l *Config) setupLdapConfig() error {
 
 	l.host = setDefaultString(os.Getenv(sso.ConfMap["sso_ldap_host"]), "localhost")
@@ -76,7 +76,7 @@ func (l *Config) setupLdapConfig() error {
 	l.bindPasswd = os.Getenv(sso.ConfMap["sso_ldap_bindpasswd"])
 
 	if l.binddn != "" && l.bindPasswd == "" {
-		return errors.New("Bind dn is set but bind password is not set")
+		return errors.New("Vincular dn é definido, mas a senha de vinculação não está definida")
 	}
 
 	return nil
