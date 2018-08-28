@@ -57,7 +57,7 @@ func handleSSOGetRequest(w http.ResponseWriter, r *http.Request) {
 		err = true
 	}
 	tmplData := TmplData{QueryString: r.URL.Query().Get("s_url"), Error: err}
-	renderTemplate(w, "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html", &tmplData)
+	renderTemplate(w, os.Getenv("HOME")+"/go/src/github.com/vinipis/simple-sso/templates/login.html", &tmplData)
 }
 
 // handleSSOPostRequest define o cookie sso.
