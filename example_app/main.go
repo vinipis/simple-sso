@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -16,7 +17,7 @@ import (
 var parsedPubKey *rsa.PublicKey
 
 func init() {
-	key, _ := ioutil.ReadFile("/home/carlos/go/src/github.com/vinipis/simple-sso/key_pair/demo.rsa.pub") // esta é a chave pública do servidor de login (simple-sso)
+	key, _ := ioutil.ReadFile(os.Getenv("HOME") + "/go/src/github.com/vinipis/simple-sso/key_pair/demo.rsa.pub") // esta é a chave pública do servidor de login (simple-sso)
 	parsedPubKey, _ = jwt.ParseRSAPublicKeyFromPEM(key)
 }
 
@@ -92,7 +93,7 @@ func main() {
 	r.HandleFunc("/auth_token", authTokCheck)
 
 	http.Handle("/", r)
-	err := http.ListenAndServeTLS(":8082", "/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/cert.pem", "/home/carlos/go/src/github.com/vinipis/simple-sso/ssl_certs/key.pem", nil)
+	err := http.ListenAndServeTLS(":8082", os.Getenv("HOME")+"/go/src/github.com/vinipis/simple-sso/ssl_certs/cert.pem", os.Getenv("HOME")+"/go/src/github.com/vinipis/simple-sso/ssl_certs/key.pem", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

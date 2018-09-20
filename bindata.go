@@ -75,7 +75,7 @@ var _templatesFooterHTML = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xaa\
 func templatesFooterHTMLBytes() ([]byte, error) {
 	return bindataRead(
 		_templatesFooterHTML,
-		"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/footer.html",
+		os.Getenv("HOME")+"/go/src/github.com/vinipis/simple-sso/templates/footer.html",
 	)
 }
 
@@ -85,7 +85,7 @@ func templatesFooterHTML() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/footer.html", size: 49, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
+	info := bindataFileInfo{name: os.Getenv("HOME") + "/go/src/github.com/vinipis/simple-sso/templates/footer.html", size: 49, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -95,7 +95,7 @@ var _templatesHeaderHTML = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xac\
 func templatesHeaderHTMLBytes() ([]byte, error) {
 	return bindataRead(
 		_templatesHeaderHTML,
-		"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/header.html",
+		os.Getenv("HOME")+"/go/src/github.com/vinipis/simple-sso/templates/header.html",
 	)
 }
 
@@ -105,7 +105,7 @@ func templatesHeaderHTML() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/header.html", size: 1922, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
+	info := bindataFileInfo{name: os.Getenv("HOME") + "/go/src/github.com/vinipis/simple-sso/templates/header.html", size: 1922, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -115,7 +115,7 @@ var _templatesLoginHTML = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x7c\x
 func templatesLoginHTMLBytes() ([]byte, error) {
 	return bindataRead(
 		_templatesLoginHTML,
-		"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html",
+		os.Getenv("HOME")+"/go/src/github.com/vinipis/simple-sso/templates/login.html",
 	)
 }
 
@@ -125,7 +125,7 @@ func templatesLoginHTML() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html", size: 791, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
+	info := bindataFileInfo{name: os.Getenv("HOME") + "/go/src/github.com/vinipis/simple-sso/templates/login.html", size: 791, mode: os.FileMode(436), modTime: time.Unix(1532548223, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -182,9 +182,9 @@ func AssetNames() []string {
 
 // _bindata é uma tabela, segurando cada gerador de ativos, mapeada para o seu nome.
 var _bindata = map[string]func() (*asset, error){
-	"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/footer.html": templatesFooterHTML,
-	"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/header.html": templatesHeaderHTML,
-	"/home/carlos/go/src/github.com/vinipis/simple-sso/templates/login.html":  templatesLoginHTML,
+	os.Getenv("HOME") + "/go/src/github.com/vinipis/simple-sso/templates/footer.html": templatesFooterHTML,
+	os.Getenv("HOME") + "/go/src/github.com/vinipis/simple-sso/templates/header.html": templatesHeaderHTML,
+	os.Getenv("HOME") + "/go/src/github.com/vinipis/simple-sso/templates/login.html":  templatesLoginHTML,
 }
 
 // AssetDir retorna os nomes dos arquivos abaixo de um certo
