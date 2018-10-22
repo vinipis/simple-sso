@@ -37,22 +37,24 @@ Running the binary
 
 Just run the simple-sso binary. Following principles of 12 factor app, simple-sso uses environment variables for its configurations. These are.
 
-| Variable      | Default value | Purpose |
-|---------------|--------------|------------|
-| sso_ssl_cert_path  |  ssl_certs/cert.pem | ssl certificate path. |
-| sso_ssl_key_path  |ssl_certs/key.pem   | ssl certificate private key. |
-| sso_private_key_path  | key_pair/demo.rsa  | rsa private key path used to sign the token. |
-| sso_weblog_dir  |  - | Directory path where access hits are logged. |
-| sso_user_roles  | false  | Whether to pack in the roles info within the token. |
-| sso_cookie_name  | SSO_C  | Name of the sso cookie. |
-| sso_cookie_domain  | 127.0.0.1  | Domain name of the cookie. |
-| sso_cookie_validhours  | 20  | Cookie validity in hours. |
-| sso_ldap_host  | localhost  | Ldap host. |
-| sso_ldap_port  | 389  | Ldap host port. |
-| sso_ldap_ssl  | false  | whether to use ssl. |
-| sso_ldap_basedn  | - | Ldap base dn. |
-| sso_ldap_binddn  | - | Ldap bind dn if anonymous bind is disallowed. |
-| sso_ldap_bindpasswd  | - | Ldap bind password if anonymous bind is disallowed. |
+ ______________________________________________________________________________________________________________________________________
+| Variable      		| Default value 	                           | Purpose 					                                   |
+|-----------------------|----------------------------------------------|---------------------------------------------------------------|
+|.sso_ssl_cert_path.....|.ssl_certs/cert.pem...........................|.caminho do certificado ssl....................................|
+|.sso_ssl_key_path......|.ssl_certs/key.pem............................|.chave privada do certificado ssl..............................|
+|.sso_private_key_path..|.key_pair/demo.rsa............................|.caminho da chave privada rsa usado para assinar o token.......|
+|.sso_weblog_dir........|----------------------------------------------|.Caminho do diretório onde os acessos de acesso são registrados|
+|.sso_user_roles........|.false........................................|.Se deve incluir as informações de funções no token............|
+|.sso_cookie_name.......|.SSO_C........................................|.Nome do cookie sso............................................|
+|.sso_cookie_domain.....|.127.0.0.1....................................|.Nome de domínio do cookie.....................................|
+|.sso_cookie_validhours.|.20...........................................|.Validade do cookie em horas...................................|
+|.sso_ldap_host.........|.localhost....................................|.Ldap host.....................................................|
+|.sso_ldap_port.........|.389..........................................|.Ldap Porta do host............................................|
+|.sso_ldap_ssl..........|.false........................................|.se usar ssl...................................................|
+|.sso_ldap_basedn.......|----------------------------------------------|.Ldap base dn..................................................|
+|.sso_ldap_binddn.......|----------------------------------------------|.Ldap bind dn se ligação anônima não é permitida...............|
+|.sso_ldap_bindpasswd...|----------------------------------------------|.Ldap vincular senha se a vinculação anônima for proibida......|
+|______________________________________________________________________________________________________________________________________|
 
 
 Caveats
